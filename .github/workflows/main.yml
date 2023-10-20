@@ -46,7 +46,7 @@ jobs:
               uses: actions/upload-artifact@v3.0.0
               with:
                 name: ${{ matrix.os }}
-                path: out
+                path: out/make
                 
             - name: release
               uses: softprops/action-gh-release@v0.1.14
