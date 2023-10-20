@@ -3,8 +3,8 @@ name: Build
 
 on:
     push:
-        branches:
-          - master
+      tags:
+        - v*.*.*
 
 jobs:
     release:
@@ -33,7 +33,7 @@ jobs:
               env:
                 GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
             - name: Show make out
-              run: ls -al
+              run: ls -al ./out
             
             - name: upload artifacts
               uses: actions/upload-artifact@v3.0.0
