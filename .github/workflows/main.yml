@@ -1,5 +1,5 @@
 
-name: Build
+name: Build # action脚本没错
 
 on:
     push:
@@ -7,7 +7,7 @@ on:
         - v*.*.*
 
 permissions:
-    contents: write
+    contents: write # 添加权限，不然release时可能出现403
 
 jobs:
     release:
@@ -17,14 +17,13 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-              os: [windows-latest, macos-latest, ubuntu-latest]
-              # os: [ macos-latest]
+              os: [windows-latest, macos-latest, ubuntu-latest] # 制定系统
         steps:
             - name: Check out git repository
-              uses: actions/checkout@v4
+              uses: actions/checkout@v4 #官方包-切换项目
             
             - name: Install Node.js
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v3 # 按照Node
               with:
                 node-version: "20"
                 
@@ -34,20 +33,19 @@ jobs:
             - name: Build Electron App
               run: npm run make
               env:
-                GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-            - name: Show make out
-              run: echo ${{ secrets.ACCESS_TOKEN }}
-            
+                GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}   
+            # 上传文件供给后续脚本使用
             - name: upload artifacts
               uses: actions/upload-artifact@v3.0.0
               with:
                 name: ${{ matrix.os }}
                 path: out/make/
-                
+            
+            # 发不到release
             - name: release
               uses: softprops/action-gh-release@v1
               if: startsWith(github.ref, 'refs/tags/')
               with:
-                files: "out/make/zip/**"
+                files: "out/make/zip/**" # 把这些文件添加到relase- Assets 里面，一般就是把打包后的安装包放进去
               env:
                 GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
