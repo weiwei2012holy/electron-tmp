@@ -1,20 +1,25 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, screen } = require('electron')
 const path = require('node:path')
 const url = require('url');
 const isDev = require('electron-is-dev');
-console.log('is-dev',isDev)
+console.log('is-dev', isDev)
 
 
 
 function createWindow() {
 
+  // 创建浏览器窗口
+  let _workAreaSize = screen.getDisplayNearestPoint(screen.getCursorScreenPoint()).workAreaSize;
+
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: _workAreaSize.width * 0.8,
+    height: _workAreaSize.height * 0.8,
+    minHeight: 400,
+    minWidth: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'src/preload.js')
     }
   })
   // mainWindow.webContents.on('will-navigate', (event, navigationUrl) => {

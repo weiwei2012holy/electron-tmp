@@ -1,4 +1,7 @@
-
+# secrets.ACCESS_TOKEN 在哪配置？
+# 1. 个人中心： - 设置[setting] - 左侧底部【Developer settings】- Personal access tokens (classic) 点击生成token
+# 2. 去到项目：顶部菜单【settings】- 左侧菜单【Actions secrets and variables】- Actions，点击新增将名称和上面的token录入进去
+# 3. action脚本增加write权限
 name: Build # action脚本没错
 
 on:
