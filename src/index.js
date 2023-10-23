@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import './index-build.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
-
 
 root.render(
     <React.StrictMode>
@@ -13,7 +11,12 @@ root.render(
 );
 
 export default function App() {
-  
+    return (
+        <Demo />
+    );
+}
+
+export function Demo() {
     const [msgRes, setMegRes] = useState('')
     const version = globalThis.config.version()
     const send = async () => {
@@ -23,12 +26,21 @@ export default function App() {
     const isDev = globalThis.isDev
 
     return (
-        <>
-            <p className='color-red'>Hello World!</p>
+        <div className='flex flex-col gap-5'>
+            <p className='w-24 text-cyan-400 text-lg'>Hello World!</p>
             <h2>Version {version}</h2>
             <h2>{isDev ? "is-dev" : "not-dev"}</h2>
-            <button onClick={send}>Send</button>
-            <p>{msgRes}</p>
-        </>
+            <div class="join gap-5">
+                <button className="btn btn-primary" onClick={send}>Send</button>
+                
+                <button className="btn btn-link">Link</button>
+            </div>
+            {msgRes.length > 0 && <div class="alert alert-success">
+                <span>{msgRes}</span>
+            </div>}
+
+
+        </div>
     );
+
 }
