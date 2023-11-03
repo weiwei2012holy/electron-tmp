@@ -11,3 +11,9 @@ const send = async () => {
     const res = await window.config.send(msg)
     alert(res)
 }
+
+
+const sendSystemNotice = async (msg) => {
+    return await window.config.sendSystemNotice(msg)
+}
+

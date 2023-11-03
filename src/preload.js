@@ -10,23 +10,12 @@ const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('config', {
   version: () => '1.0.1',
+
+  send: (msg) => ipcRenderer.invoke('send', msg),
+
+  sendSystemNotice: (msg) => ipcRenderer.invoke('sendSystemNotice', msg),
   
-  send: (msg) => ipcRenderer.invoke('send', msg)
+  openWindow: (window) => ipcRenderer.invoke('openWindow', window)
+
 })
-
-// const isDev = require('electron-is-dev');
-
-// contextBridge.exposeInMainWorld('isDev', isDev);
-
-
-// window.addEventListener('DOMContentLoaded', () => {
-//   const replaceText = (selector, text) => {
-//     const element = document.getElementById(selector)
-//     if (element) element.innerText = text
-//   }
-
-//   for (const type of ['chrome', 'node', 'electron']) {
-//     replaceText(`${type}-version`, process.versions[type])
-//   }
-// })
 
